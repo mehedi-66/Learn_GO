@@ -212,3 +212,185 @@
 - i is index and v is value here 
 
 <img src="img/045.png"> 
+
+- while loop in go
+
+<img src="img/046.png"> 
+
+- infinity loop with break key word
+
+<img src="img/047.png"> 
+
+- for loop in go
+
+<img src="img/048.png"> 
+
+- a progream how many time to n number of elements insert into slice\
+
+
+<img src="img/049.png"> 
+
+- Total time without Preallocation: 15.6682ms
+- Total time with Preallocation: 2.4033ms
+
+
+### String, Runes, Bytes 
+
+<img src="img/050.png"> 
+
+- non ASCII character in string 
+- looping skip 2 
+- UTF8 in string  "string" by 8 bit binary encoding
+- ASCII in string by 7 bit binary encoding
+
+<img src="img/051.png"> 
+<img src="img/052.png"> 
+<img src="img/053.png"> 
+<img src="img/054.png">
+
+-  "" to give `[]rune` 
+
+<img src="img/055.png">
+
+
+                var myRune = 'a'
+                fmt.Printf("\nmyRune = %v", myRune) // 97
+
+
+- Every time new string is created 
+- string is imutable that that means by index `myString[2]` value change 
+- this looping way create string is ineficient 
+
+<img src="img/056.png">
+
+- using string builder create string more faster 
+- and efficient 
+
+<img src="img/057.png">
+
+### Struct and Interface in GO
+
+<img src="img/058.png">
+
+- user define type 
+- here type is struct 
+- struct contain mixure type of vairables
+
+<img src="img/059.png">
+
+- intialize and  print 
+
+<img src="img/060.png">
+
+- omit the fild name has to order flowing
+- or name.fildName access 
+
+<img src="img/061.png">
+
+- struct inside struct example
+- struct variale use inside of struct example 
+
+<img src="img/062.png">
+
+- direct struct using inisde struct 
+
+<img src="img/063.png">
+
+- Anonymous struct and inisized when it create 
+- it is not reuseable 
+
+<img src="img/064.png">
+
+- Struct has called method that can use struct
+- here method like class mehtod like other programming language concept 
+- thes are method that is tried to struct 
+- access the the struct variable 
+- method just like fuction 
+- `like class (struct) instance create and called is method` 
+
+<img src="img/065.png">
+
+```go
+package main
+import "fmt"
+
+type myStruct struct{
+        Name string
+	Age int
+}
+func (e myStruct) printName(){
+        fmt.Println("Hi "+ e.Name)
+}
+func main() {
+	var mySt myStruct = myStruct{Name: "Mehedi"};
+	mySt.printName()
+	fmt.Println(mySt.Name)
+}
+```
+
+- Any Engine Miliage calculation 
+- that time iterface is comming 
+
+<img src="img/067.png">
+
+- Interface 
+- using this take any parameter 
+- take any type of struct as paraper 
+- and dynamicall call the function for calucalete distance 
+
+<img src="img/068.png">
+
+### Pointer in Go
+
+<img src="img/069.png">
+
+- pointer store address of memory location 
+
+<img src="img/070.png">
+
+- when `var p *int32` nil store into memeory address where p memeory alocated 
+- that means null store if not assing anything s
+-  
+
+<img src="img/071.png">
+
+- when `*p` vlaue is assing the p address refereance location value is updated 
+
+<img src="img/072.png">
+
+- `&i` to store i variable memeory address asing to a pointer 
+- if there are refereancing to each other 
+- one's value is changed then both see the value is updated 
+- 
+
+<img src="img/073.png">
+<img src="img/074.png">
+
+- if normal valriable not copy not share refereance it is value type 
+- on the other hand slices used the refereance under the hood 
+- if we copy then both array value is changed acordingly 
+
+
+<img src="img/075.png">
+
+#### pointer with function 
+
+- if we pass array into function then value type is passed to function array parameter
+- and both array address prointer is differet on thing1 and thing2
+
+<img src="img/076.png">
+
+<img src="img/077.png">
+
+- Function pass arguments `&` and paramter `*`
+- pass as refereance same memory location share 
+- copay value into new array takes time we can reduce time
+- if any vlaue change that going to refalact both arrays
+
+<img src="img/078.png">
+
+
+### concurancy and Gorutine in Go 
+
+<img src="img/079.png">
+

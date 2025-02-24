@@ -1,12 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
-	//var intArry [3]int32 = [3]int32{1, 2, 3}
-	intArr := [...]int32{1, 2, 3, 4}
-	fmt.Println(intArr)
+	var strSlice = []string{"a", "b", "c", "d", "e"}
+	var strBulder strings.Builder
 
-	var myMap map[string]int32 = make(map[string]int32)
+	for i := range strSlice {
+		strBulder.WriteString(strSlice[i])
+	}
+	var catStr = strBulder.String()
+	fmt.Printf("\n%v", catStr)
 
 }
