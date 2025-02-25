@@ -1,18 +1,21 @@
 package main
 
-import (
-	"fmt"
-	"strings"
-)
+import "fmt"
 
 func main() {
-	var strSlice = []string{"a", "b", "c", "d", "e"}
-	var strBulder strings.Builder
+	var c = make(chan int)
+	go process(c)
 
-	for i := range strSlice {
-		strBulder.WriteString(strSlice[i])
+	for i := range c {
+
+		fmt.Println(i)
 	}
-	var catStr = strBulder.String()
-	fmt.Printf("\n%v", catStr)
+}
 
+func process(c chan int) {
+	defer close(c)
+	for i := 0; i < 5; i++ {
+		c <- i
+	}
+	//close(c)
 }

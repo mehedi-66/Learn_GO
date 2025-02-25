@@ -394,3 +394,214 @@ func main() {
 
 <img src="img/079.png">
 
+- lunch multiple functions
+- concurancy working that function 
+- concurancy != Parallel execution 
+
+#### concurancy
+
+- single CPU execution task by switching context 
+- non blocking execution task
+- when database call by 3 second 
+- that time also task2 execute by context switching
+
+
+<img src="img/080.png">
+
+#### Parallel execution
+
+- another way get concurancy by parallel execution
+- Two task and dedicated two CPU `Core`
+- symmetricaly execution task1 and task2 by two dedicated CPU core
+- go achive some level of parallel execution by `goroutine`
+
+<img src="img/081.png">
+
+- DB call simulte without go routines
+- the time it taken is 5.03 s
+
+
+<img src="img/082.png">
+
+- lets database call concurently by `go`
+- when `go dbCall(i)` the program finish without any output 
+- why the task is execute in background 
+- we have to wait for the task to finish
+- wating group come into the picture `sync` libray can help in this case 
+- `sync.WaitGroup{}` like a counter 
+
+- wg.Add(1) set counter of 
+- wg.Done() decrement the counter
+- wg.Wait() all the counter are back to zero
+- that means all the task are execute 
+
+- Total Time of execution: 1.2 s significantly improve performance
+
+
+<img src="img/083.png">
+
+- some unexpected result store into our slice 
+- because of a time differenct processes or thread  access the same memory curept the memoery location the slice to store the result
+
+<img src="img/084.png">
+
+
+- using `sync.Mutex{}` macanizome the lock and ulock 
+- access the value and update the value using thread can safely be
+- if one theread is lock a varaible the other threead has to be wait until that is unlocked 
+
+<img src="img/085.png">
+
+- full lock and read lock 
+
+<img src="img/086.png">
+
+- Task function not have that much work then less time 
+- if some amount of work is required few times
+- still so fast 
+- example 
+
+<img src="img/087.png">
+
+- Task is faster depending on Number of CPU Core (8)
+
+<img src="img/088.png">
+
+### Channels in Go-Routine
+
+<img src="img/089.png">
+
+- channel in go routine how the infomation pass between go routines 
+- Hold data
+- Thread safe
+- Listen for data 
+- when listen holding code execution 
+
+<img src="img/090.png">
+
+- using `make(chan int)` or string any type of data can create channel for pass
+- channel like hold array or buffere data 
+- `<-` store and retrive data from chanenl
+
+<img src="img/091.png">
+
+```go 
+package main
+
+import "fmt"
+
+func main() {
+        var c = make(chan int)
+	c <- 1  // here asing value code here wait for read data from it 
+	         // give deadlock error shows here 
+	var i = <-c
+
+	fmt.Println(i) // 1
+}
+
+```
+
+- `Proper way to write channel with go routine`
+
+- first create channel
+- then pass to go routine function call bacakgroud function execute
+- then immediately fmt println(<-c) 
+here wait channel data recive by which go routine function send data
+- then print properly 
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var c = make(chan int)
+	go process(c) // bacakgroud function execute
+	fmt.Println(<-c) // send value print and wait for data send data from go routine function execute
+}
+
+func process(c chan int) {
+	c <- 123 // assign send data 
+}
+
+```
+
+- after printing value from channel
+- deadlock again happened 
+- after sending all the values 
+- channel process need to `close()`
+
+ <img src="img/093.png">
+
+ ```go 
+package main
+
+import "fmt"
+
+func main() {
+        var c = make(chan int)
+	go process(c)
+
+	for i := range c {
+
+		fmt.Println(i)
+	}
+}
+
+func process(c chan int) {
+	defer close(c)
+	for i := 0; i < 5; i++ {
+		c <- i
+	}
+	//close(c)
+}
+
+ ```
+
+ - Buffer channel means [1,2,4] like store value into go routine fucsiont 
+- into buffer array 
+- then main function slowly read from the buffer array 
+
+<img src="img/094.png">
+
+- `Select` to check which chanecl gives value 
+- sales checking price and Max_Chicken_Price threshold
+
+<img src="img/096.png">
+
+- using two channels which chanel send message write that 
+- select like a if satement 
+
+<img src="img/095.png">
+
+### Generics in Go
+
+<img src="img/097.png">
+
+- for same task using function different function we have to write 
+- if we pass a generic type variable worked done 
+
+<img src="img/098.png">
+
+- insted of passing value 
+- we are going to send type `[T int | string]`
+
+<img src="img/099.png">
+
+- we can use `any` type 
+
+<img src="img/100.png">
+
+- load Json and struct example 
+- and also generic 
+- unmarsall 
+
+<img src="img/101.png">
+
+<img src="img/102.png">
+
+- struct and generic example
+
+<img src="img/103.png">
+
+
